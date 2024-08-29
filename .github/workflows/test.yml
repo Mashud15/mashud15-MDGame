@@ -25,11 +25,11 @@ jobs:
     - name: Build Docker image
       run: |
         docker build -t my-image .
-        docker tag my-image:latest 654654194612.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
+        docker tag my-image:latest 654654194612.dkr.ecr.ap-south-1.amazonaws.com/mashudrepo:latest
 
     - name: Push Docker image to Amazon ECR
       run: |
-        docker push 654654194612.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
+        docker push 654654194612.dkr.ecr.ap-south-1.amazonaws.com/mashudrepo:latest
 
     - name: Update ECS task definition
       id: task-def
@@ -37,7 +37,7 @@ jobs:
       with:
         task-definition: deploy/task-definition.json
         container-name: my-container
-        image: 654654194612.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
+        image: 654654194612.dkr.ecr.ap-south-1.amazonaws.com/mashudrepo:latest
 
     - name: Deploy to ECS service
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
