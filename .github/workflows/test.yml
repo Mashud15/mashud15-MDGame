@@ -24,7 +24,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t my-image .
+        docker build -t md-image .
         docker tag my-image:latest 654654194612.dkr.ecr.ap-south-1.amazonaws.com/mashudrepo:latest
 
     - name: Push Docker image to Amazon ECR
