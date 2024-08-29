@@ -43,6 +43,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: my-ecs-service
-        cluster: my-cluster
+        service: mashud-service
+        cluster: mashud-cluster1
         wait-for-service-stability: true
