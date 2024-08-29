@@ -1,4 +1,4 @@
-name: Deploy to Amazon ECR
+name: Deploy to Amazon ECS
 
 on:
   push:
@@ -22,10 +22,27 @@ jobs:
     - name: Log in to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v2
 
-      
-
-    - name: Build, tag, and push image to ECR
+    - name: Build Docker image
       run: |
         docker build -t my-image .
         docker tag my-image:latest 123456789012.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
+
+    - name: Push Docker image to Amazon ECR
+      run: |
         docker push 123456789012.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
+
+    - name: Update ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: deploy/task-definition.json
+        container-name: my-container
+        image: 123456789012.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
+
+    - name: Deploy to ECS service
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: my-ecs-service
+        cluster: my-cluster
+        wait-for-service-stability: true
