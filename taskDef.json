@@ -3,8 +3,8 @@
     "networkMode": "awsvpc",
     "containerDefinitions": [
       {
-        "name": "my-container",
-        "image": "123456789012.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest",
+        "name": "ecs-container1",
+        "image": "654654194612.dkr.ecr.ap-south-1.amazonaws.com/mashudrepo:latest",
         "cpu": 256,
         "memory": 512,
         "essential": true,
@@ -22,6 +22,6 @@
     "cpu": "256",
     "memory": "512",
     "executionRoleArn": "arn:aws:iam::654654194612:role/ECSTaskExecution-Role",
-    "taskRoleArn": "arn:aws:iam::123456789012:role/ecsTaskRole"
+    "taskRoleArn": "arn:aws:iam::654654194612:role/ecsTaskRole"
   }
   
